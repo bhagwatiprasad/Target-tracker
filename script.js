@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const achievementInput = document.getElementById("achievementInput");
     const nextTargetButton = document.getElementById("nextTargetButton");
     const timerHistory = document.getElementById("timerHistory").getElementsByTagName('tbody')[0];
+    const earlyAchievementButton = document.getElementById("earlyAchievementButton");
 
     // Create audio element for alarm
     const alarmSound = new Audio('alarm-sound.mp3');
@@ -145,6 +146,13 @@ document.addEventListener('DOMContentLoaded', () => {
         saveState();
     });
 
+    earlyAchievementButton.addEventListener("click", () => {
+        if (confirm("Are you sure you want to end the timer early?")) {
+            stopTimer();
+            showAchievementPrompt();
+        }
+    });
+
     // Add visibility change handling
     let isTabVisible = true;
     let alarmShouldPlay = false;
@@ -230,6 +238,16 @@ document.addEventListener('DOMContentLoaded', () => {
             completeObjectiveElement.style.color = '#4CAF50';
             completeObjectiveElement.style.fontWeight = 'bold';
             achievementPrompt.insertBefore(completeObjectiveElement, achievementPrompt.firstChild);
+
+            // Add early achievement note if timer was stopped early
+            if (seconds > 0) {
+                const earlyNote = document.createElement('p');
+                const remainingMins = Math.ceil(seconds / 60);
+                earlyNote.textContent = `(Completed ${remainingMins} minutes early)`;
+                earlyNote.style.color = '#2196F3';
+                earlyNote.style.fontSize = '0.9em';
+                achievementPrompt.insertBefore(earlyNote, achievementPrompt.firstChild.nextSibling);
+            }
         }
     }
 

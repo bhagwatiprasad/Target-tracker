@@ -190,3 +190,12 @@ tr:hover {
     margin-right: 5px;
   }
 }
+
+#earlyAchievementButton {
+  background-color: #FF9800;
+  margin-top: 20px;
+}
+
+#earlyAchievementButton:hover {
+  background-color: #F57C00;
+}
