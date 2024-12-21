@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2196F3">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <title>Focus Timer</title>
+</head>
+<body>
+    <div class="app-container">
+        <h1>Focus Timer</h1>
+
+        <div class="timer-section">
+            <button id="startTimerButton">New Timer</button>
+
+            <div id="objectivePrompt" class="hidden">
+                <label for="minutesInput">Minutes:</label>
+                <input type="number" id="minutesInput" min="1" value="25">
+
+                <label for="objectiveInput">Enter your Objective:</label>
+                <input type="text" id="objectiveInput">
+                <button id="startActualTimerButton">Begin Countdown</button>
+            </div>
+
+            <div id="timerDisplay" class="hidden">
+                <p id="timer">00:00</p>
+                <div id="currentTarget" class="hidden"></div>
+            </div>
+
+            <div id="achievementPrompt" class="hidden">
+                <label for="achievementInput">What did you achieve?</label>
+                <input type="text" id="achievementInput">
+                <button id="nextTargetButton" disabled>Next Target</button>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <h2>Timer History</h2>
+            <div class="table-container">
+                <table id="timerHistory">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Duration</th>
+                            <th>Target</th>
+                            <th>Is Achieved</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
